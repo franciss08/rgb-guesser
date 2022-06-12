@@ -30,6 +30,7 @@ body {
     border: solid 0.15rem black;
     border-radius: 0.5rem;
     transition: 0.5s;
+    cursor: pointer;
 }
 
 #info-bar {
@@ -77,5 +78,14 @@ button:hover {
 
     #info-bar {
         font-size: 0.75rem;
+    }
+}
+
+@media only screen and (min-width: 810px) {
+    .container {
+        width: 810px;
+    }
+    #color-container {
+        width: 770px;
     }
 }
