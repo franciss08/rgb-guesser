@@ -1,8 +1,8 @@
-let colorContainer = document.getElementById('color-container');
-let colorToGuess = document.getElementById('color-to-guess');
-let buttonContainer = document.getElementById('button-container');
-let pointsSpan = document.getElementById('points');
-let livesSpan = document.getElementById('lives');
+const colorContainer = document.getElementById('color-container');
+const colorToGuess = document.getElementById('color-to-guess');
+const buttonContainer = document.getElementById('button-container');
+const pointsSpan = document.getElementById('points');
+const livesSpan = document.getElementById('lives');
 const highScoreSpan = document.getElementById('high-score');
 const messageText = document.getElementById('message');
 const levelSpan = document.getElementById('level');
@@ -36,6 +36,8 @@ function generateGame (levelNumberCheck) {
     levelComplete = false;
     previousGuesses = [];
     statusBar.style.backgroundColor = defaultContainerColor;
+    colorToGuess.style.backgroundColor = defaultContainerColor;
+    colorContainer.style.backgroundColor = defaultContainerColor;
     while (colorContainer.firstChild) {
         colorContainer.removeChild(colorContainer.firstChild);
     }
@@ -56,6 +58,7 @@ function generateGame (levelNumberCheck) {
     colorToGuess.innerHTML = chosenColor //+ ' and chosen position is: ' + chosenPosition;
     messageText.innerHTML = 'Which colour matches the RGB value given?';
     levelSpan.innerHTML = levelNumber;
+    livesSpan.innerHTML = lives;
     return chosenId;
 }
 
@@ -68,7 +71,6 @@ function checkGuess (event) {
             if (clickedId === secretColorId) {
                 console.log('correct pick');
                 correctGuess();
-                levelComplete = true;
             } else {
                 incorrectGuess(clickedId);
             }
@@ -95,14 +97,7 @@ function correctGuess () {
     arrayOfIds.forEach(function (id) {
         document.getElementById(id).style.backgroundColor = chosenColor;
     })
-    /*
-    const continueButton = document.createElement('button');
-    continueButton.id = 'continue-button';
-    continueButton.innerHTML = 'Next Level';
-    buttonContainer.appendChild(continueButton);
-    continueButton.addEventListener('click', nextLevel);
-    */
-
+    levelComplete = true;
 }
 
 function incorrectGuess (idToHide) {
@@ -112,7 +107,10 @@ function incorrectGuess (idToHide) {
     colorToGuess.style.backgroundColor = 'lavenderblush';
     colorContainer.style.backgroundColor = 'lavenderblush';
     if (lives > 1) {
-        if (lives === 2) {livesSpan.style.color = 'red'};
+        if (lives === 2) {
+            livesSpan.style.color = 'red';
+            livesSpan.style.fontWeight = '900';
+        };
         lives --;
         livesSpan.innerHTML = lives;
         messageText.innerHTML = 'TRY AGAIN!';
@@ -128,7 +126,7 @@ function gameOver () {
     arrayOfIds.forEach(function (id) {
         document.getElementById(id).style.backgroundColor = 'white';
     });
-    alert('Game Over!');
+    //alert('Game Over!');
     messageText.innerHTML = 'GAME OVER!'
     if (points > highScore) {
         highScore = points;
@@ -149,15 +147,16 @@ function nextLevel () {
     statusBar.style.backgroundColor = defaultContainerColor;
     colorToGuess.style.backgroundColor = defaultContainerColor;
     colorContainer.style.backgroundColor = defaultContainerColor;
-    //const toRemove = document.getElementById('continue-button');
-    //buttonContainer.removeChild(toRemove);
     secretColorId = generateGame(levelNumber);
 }
 
 function newGame () {
     const toRemove = document.getElementById('new-game-button');
     buttonContainer.removeChild(toRemove);
-    livesSpan.style.color = 'black';
+    //resetting the font for lives span
+    livesSpan.style.color = 'chartreuse';
+    livesSpan.style.fontWeight = '500';
+    //reseting variables used in the game
     lives = 5;
     points = 0;
     levelNumber = 1;

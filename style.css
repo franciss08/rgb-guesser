@@ -36,6 +36,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: black;
+    color: chartreuse;
+}
+
+#info-bar p {
+    margin: 0.5rem 1rem;
+    text-align: center;
 }
 
 button {
@@ -56,4 +64,18 @@ button:hover {
     font-size: 2rem;
     padding: 0.15rem;
     line-height: 1.5;
+}
+
+@media only screen and (max-width: 480px) {
+    #color-to-guess {
+        font-size: 1.5rem;
+    }
+
+    #status-bar {
+        font-size: 1.25rem;
+    }
+
+    #info-bar {
+        font-size: 0.75rem;
+    }
 }
